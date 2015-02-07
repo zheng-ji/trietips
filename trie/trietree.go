@@ -211,61 +211,8 @@ func Build(file_path string) *Node {
         parts := strings.Split(line, "\t")
         weight, err := strconv.ParseFloat(parts[1], 64)
         if err == nil {
-            //chars := []rune(parts[0])
-            //fmt.Println("Add word:", chars, len(chars))
-            //n.Add(string(chars), weight)
             n.Add(parts[0], weight)
         }
     }
     return n
 }
-
-/*
-func main() {
-
-    fmt.Println("============ test1 ===============")
-    n := new(Node)
-    n.Init("")
-
-    n.Add("he", 0)
-    n.Add("her", 0)
-    n.Add("hero", 10)
-    n.Add("hera", 3)
-
-    n.Delete("hera", false)
-
-    fmt.Println("search h: ")
-    nodes := Search(n, "h", 10)
-    for _, node := range nodes {
-        fmt.Println(node.FullWord, node.Weight)
-    }
-    fmt.Println("search her: ")
-    nodes = Search(n, "her", 10)
-    for _, node := range nodes {
-        fmt.Println(node.FullWord, node.Weight)
-    }
-
-    fmt.Println("============ test2 ===============")
-    tree := Build("./data.txt")
-    fmt.Println("search 植物")
-    nodes = Search(tree, "植物", 10)
-    for _, node := range nodes {
-        fmt.Println(node.FullWord, node.Weight)
-    }
-
-    fmt.Println()
-    fmt.Println("search 植物大战")
-    nodes = Search(tree, "植物大战", 10)
-    for _, node := range nodes {
-        fmt.Println(node.FullWord, node.Weight)
-    }
-
-    fmt.Println()
-    fmt.Println("search 植物大战僵尸")
-    nodes = Search(tree, "植物大战僵尸", 10)
-    for _, node := range nodes {
-        fmt.Println(node.FullWord, node.Weight)
-    }
-
-}
-*/
