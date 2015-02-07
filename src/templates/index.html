@@ -20,7 +20,7 @@ var bestPictures = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.nonword('value'),
   queryTokenizer: Bloodhound.tokenizers.nonword,
   limit: 30,
-  remote: '/suggest/?query=%QUERY',
+  remote: '/tips/?query=%QUERY',
 });
 
 bestPictures.initialize();

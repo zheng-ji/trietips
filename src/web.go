@@ -66,7 +66,7 @@ func main() {
 	Init()
 	// route
 	http.HandleFunc("/", index)
-	http.HandleFunc("/suggest/", gettips)
+	http.HandleFunc("/tips/", gettips)
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, r.URL.Path[1:])
 	})
