@@ -23,7 +23,7 @@ func Init() {
 	globalTrie = trie.Build("../data/ad_app.csv")
 }
 
-func simpleSuggest(w http.ResponseWriter, r *http.Request) {
+func gettips(w http.ResponseWriter, r *http.Request) {
 
 	var valueList []ValueJson
 
@@ -36,7 +36,7 @@ func simpleSuggest(w http.ResponseWriter, r *http.Request) {
 		nodes := trie.Search(globalTrie, keyword[0], 20)
 		for _, node := range nodes {
 			var value ValueJson
-			value.Value = string(node.FullWord)
+			value.Value = string(node.LongWord)
 			valueList = append(valueList, value)
 		}
 	}
@@ -66,7 +66,7 @@ func main() {
 	Init()
 	// route
 	http.HandleFunc("/", index)
-	http.HandleFunc("/suggest/", simpleSuggest)
+	http.HandleFunc("/suggest/", gettips)
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, r.URL.Path[1:])
 	})
