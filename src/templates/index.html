@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/static/css/suggestion.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/typeahead.bundle.js"></script>
+    <script src="/static/js/bloodhound.js"></script>
+</head>
+
+<body>
+    <center>
+        <div id="container">
+          <input class="typeahead" type="text" size="400" placeholder="我会联想的:-)">
+        </div>
+        <div class="copyright">CopyRight @有米基础研发</div>
+    </center>
+
+<script>
+var bestPictures = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.nonword('value'),
+  queryTokenizer: Bloodhound.tokenizers.nonword,
+  limit: 30,
+  remote: '/suggest/?query=%QUERY',
+});
+
+bestPictures.initialize();
+
+$('#container .typeahead').typeahead( {
+  hint: true,
+  highlight: true,
+  minLength: 1
+}, {
+  name: 'best-pictures',
+  displayKey: 'value',
+  source: bestPictures.ttAdapter(),
+});
+</script>
+</body>
+</html>
+
