@@ -32,6 +32,7 @@ func gettips(w http.ResponseWriter, r *http.Request) {
 	keyword := r.Form["query"]
 	fmt.Println("query:", keyword)
 	if len(keyword) == 0 {
+		fmt.Fprintf(w, "[]")
 	} else {
 		nodes := trie.Search(globalTrie, keyword[0], 20)
 		for _, node := range nodes {
@@ -40,11 +41,8 @@ func gettips(w http.ResponseWriter, r *http.Request) {
 			valueList = append(valueList, value)
 		}
 	}
-    /*
-    if len(valueList) > 10 {
-        valueList = valueList[:10]
-    }
-    */
+
+    /* if len(valueList) > 10 { valueList = valueList[:10] } */
 
 	fmt.Println("return", valueList)
 	if len(valueList) > 0 {
@@ -63,9 +61,26 @@ func gettips(w http.ResponseWriter, r *http.Request) {
 func addentry(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	keyword := r.Form["keyword"]
-	fmt.Println("add entry keword:", keyword)
-    globalTrie.Add(keyword[0], 0)
-	fmt.Fprintf(w, "ok")
+	if len(keyword) == 0 {
+		fmt.Fprintf(w, "fail")
+	} else {
+        fmt.Println("add entry keword:", keyword)
+        globalTrie.Add(keyword[0], 0)
+        fmt.Fprintf(w, "ok")
+    }
+}
+
+//删除词条
+func delentry(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+    keyword := r.Form["keyword"]
+	if len(keyword) == 0 {
+		fmt.Fprintf(w, "fail")
+	} else {
+        fmt.Println("del entry keword:", keyword)
+        globalTrie.Delete(keyword[0], false)
+        fmt.Fprintf(w, "ok")
+    }
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -79,6 +94,7 @@ func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/tips/", gettips)
 	http.HandleFunc("/add/", addentry)
+	http.HandleFunc("/del/", delentry)
 	http.HandleFunc("/static/", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, r.URL.Path[1:])
 	})
