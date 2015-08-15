@@ -1,6 +1,5 @@
 /**
-*  Author: zhengji@youmi.net
-*  2015-02-07 07:30:29
+ * code by zheng-ji.info
  */
 
 package trie
@@ -15,7 +14,7 @@ import (
 type Node struct {
 	Link     map[string]*Node
 	Key      string
-	IsLeaf  bool
+	IsLeaf   bool
 	Weight   float64
 	LongWord string
 }
@@ -54,15 +53,15 @@ func (n *Node) GetLassNodeWithPrefix(prefix string) *Node {
 type NodeList []*Node
 
 func (nl NodeList) Len() int {
-    return len(nl)
+	return len(nl)
 }
 
 func (nl NodeList) Less(i, j int) bool {
-    return nl[i].Weight > nl[j].Weight
+	return nl[i].Weight > nl[j].Weight
 }
 
 func (nl NodeList) Swap(i, j int) {
-    nl[i], nl[j] = nl[j], nl[i]
+	nl[i], nl[j] = nl[j], nl[i]
 }
 
 func Depth_walk(node *Node) map[string]*Node {

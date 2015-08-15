@@ -1,6 +1,5 @@
 /**
- * zhengji@youmi.net
- * 2015-02-07 09:32:00
+ * code by zheng-ji.info
  */
 
 package main
@@ -42,8 +41,6 @@ func gettips(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-    /* if len(valueList) > 10 { valueList = valueList[:10] } */
-
 	fmt.Println("return", valueList)
 	if len(valueList) > 0 {
 		b, err := json.Marshal(valueList)
@@ -64,23 +61,23 @@ func addentry(w http.ResponseWriter, r *http.Request) {
 	if len(keyword) == 0 {
 		fmt.Fprintf(w, "fail")
 	} else {
-        fmt.Println("add entry keword:", keyword)
-        globalTrie.Add(keyword[0], 0)
-        fmt.Fprintf(w, "ok")
-    }
+		fmt.Println("add entry keword:", keyword)
+		globalTrie.Add(keyword[0], 0)
+		fmt.Fprintf(w, "ok")
+	}
 }
 
 //删除词条
 func delentry(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-    keyword := r.Form["keyword"]
+	keyword := r.Form["keyword"]
 	if len(keyword) == 0 {
 		fmt.Fprintf(w, "fail")
 	} else {
-        fmt.Println("del entry keword:", keyword)
-        globalTrie.Delete(keyword[0], false)
-        fmt.Fprintf(w, "ok")
-    }
+		fmt.Println("del entry keword:", keyword)
+		globalTrie.Delete(keyword[0], false)
+		fmt.Fprintf(w, "ok")
+	}
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
